@@ -4,15 +4,16 @@
 #include "DrawMap.h"
 
 void draw_map(sf::RenderWindow& r_window, char map[][22]){
-    int CELL_SIZE = 16;
+    int CELL_SIZE = 24;
     sf::Sprite sprite;
     sf::Texture texture;
-    texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/map.png");
+    texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/map24.png");
     sprite.setTexture(texture);
+    int align= r_window.getSize().x / 2 - 264;
 
     for(int i=0; i < 21; i++) {
-        for (int j = 0; j < 21; j++) {
-            sprite.setPosition(CELL_SIZE * i, CELL_SIZE * j);
+        for (int j = 0; j < 22; j++) {
+            sprite.setPosition(align + CELL_SIZE * j,align + CELL_SIZE * i);
 
             switch (map[i][j]) {
                 case '#': {
@@ -23,46 +24,37 @@ void draw_map(sf::RenderWindow& r_window, char map[][22]){
 
                     if (j < r_window.getSize().y - 1) {
                         if (map[i][1 + j] == '#') {
+                            right = 1;
+                        }
+                    }
+
+                    if (0 < i) {
+                        if ('#' == map[i - 1][j]) {
+                            up = 1;
+                        }
+                    }
+
+                    if (i < r_window.getSize().x - 1) {
+                        if ('#' == map[1 + i][j]) {
                             down = 1;
                         }
                     }
 
 
-                    //Since we have warp tunnels, we need to draw them as if they're connected.
-                    if (0 < i) {
-                        if ('#' == map[i - 1][j]) {
-                            left = 1;
-                        }
-                    } else {
-                        left = 1;
-                    }
-
-                    if (i < r_window.getSize().x - 1) {
-                        if ('#' == map[1 + i][j]) {
-                            right = 1;
-                        }
-                    } else {
-                        right = 1;
-                    }
-
-
                     if (0 < j) {
                         if ('#' == map[i][j - 1]) {
-                            up = 1;
+                            left = 1;
                         }
                     }
 
                     //--------------------------------------------<         DISTRIBUTIVE PROPERTY!         >----------------------------
-                    sprite.setTextureRect(
-                            sf::IntRect(CELL_SIZE * (down + 2 * (left + 2 * (right + 2 * up))), 0, CELL_SIZE,
+                    sprite.setTextureRect(sf::IntRect(CELL_SIZE * (down + 2 * (left + 2 * (right + 2 * up))), 0, CELL_SIZE,
                                         CELL_SIZE));
                     r_window.draw(sprite);
                     break;
                 }
 
                 case 'o': {
-                    sprite.setTextureRect(sf::IntRect(CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE));
-
                     sprite.setTextureRect(sf::IntRect(CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE));
 
                     r_window.draw(sprite);

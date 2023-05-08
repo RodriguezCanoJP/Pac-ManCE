@@ -7,7 +7,7 @@
 
 
 int main(){
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(800, 800), "SFML window");
 
 
     char maparr[21][22]{
@@ -42,7 +42,7 @@ int main(){
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
-            window.clear(sf::Color::White);
+            window.clear(sf::Color(34,178,193));
             draw_map(window, maparr);
             window.display();
         }
