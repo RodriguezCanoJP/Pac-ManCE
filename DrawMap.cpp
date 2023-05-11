@@ -3,7 +3,7 @@
 //
 #include "DrawMap.h"
 
-void draw_map(sf::RenderWindow& r_window, char map[][22]){
+void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador){
     int CELL_SIZE = 24;
     sf::Sprite sprite;
     sf::Texture texture;
@@ -47,7 +47,6 @@ void draw_map(sf::RenderWindow& r_window, char map[][22]){
                         }
                     }
 
-                    //--------------------------------------------<         DISTRIBUTIVE PROPERTY!         >----------------------------
                     sprite.setTextureRect(sf::IntRect(CELL_SIZE * (down + 2 * (left + 2 * (right + 2 * up))), 0, CELL_SIZE,
                                         CELL_SIZE));
                     r_window.draw(sprite);
@@ -72,8 +71,14 @@ void draw_map(sf::RenderWindow& r_window, char map[][22]){
 
                 case '=': {
                     sprite.setTextureRect(sf::IntRect(2 * CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE));
-
                     r_window.draw(sprite);
+                    break;
+                }
+
+                case 'P':{
+                    jugador.setSprite(align + j * CELL_SIZE, align + i * CELL_SIZE);
+                    r_window.draw(jugador.getSprite());
+                    break;
                 }
             }
         }
