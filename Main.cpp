@@ -5,6 +5,7 @@
 
 int main(){
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML window");
+    window.setFramerateLimit(60);
 
     Jugador jugador;
 
@@ -45,7 +46,7 @@ int main(){
 
 
         window.clear(sf::Color(34,178,193));
-        jugador.update(1);
+        jugador.update();
         draw_map(window, maparr, jugador);
         window.display();
     }

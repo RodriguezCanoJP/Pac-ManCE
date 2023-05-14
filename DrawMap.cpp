@@ -2,18 +2,16 @@
 // Created by juanpablo on 08/05/23.
 //
 #include "DrawMap.h"
-
+#include "Variables.h"
 void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador){
-    int CELL_SIZE = 24;
     sf::Sprite sprite;
     sf::Texture texture;
     texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/map24.png");
     sprite.setTexture(texture);
-    int align= r_window.getSize().x / 2 - 264;
 
     for(int i=0; i < 21; i++) {
         for (int j = 0; j < 22; j++) {
-            sprite.setPosition(align + CELL_SIZE * j,align + CELL_SIZE * i);
+            sprite.setPosition(ALIGN + CELL_SIZE * j,ALIGN + CELL_SIZE * i);
 
             switch (map[i][j]) {
                 case '#': {
@@ -76,7 +74,7 @@ void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador){
                 }
 
                 case 'P':{
-                    jugador.setSprite(align + j * CELL_SIZE, align + i * CELL_SIZE);
+                    jugador.setSprite(ALIGN + j * CELL_SIZE, ALIGN + i * CELL_SIZE);
                     r_window.draw(jugador.getSprite());
                     break;
                 }

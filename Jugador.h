@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 
+
 class Jugador{
 protected:
     int health;
@@ -8,6 +9,7 @@ protected:
     int x; ///< posicion en el eje x
     int y; ///< posicion en el eje y
     int direction;
+    char next_wall;
 
 public:
 
@@ -20,7 +22,11 @@ public:
      * @param up cantidad de movimiento hacia arriba
      * @param down cantidad de movimiento hacia abajo
      */
-    void update(int vel);
+    void update();
+
+    void setNextWall(char a);
+
+    bool checkCollision(char mapa[][22]);
 
     /**
      * Retorna la posicion del jugador en el eje x
@@ -45,12 +51,12 @@ public:
      */
     int getY();
 
+    void setSprite(int x, int y);
+
     /**
      * Retorna el sprite del objeto de jugador
      * @return Sprite sprite
      */
-    void setSprite(int x, int y);
-
     sf::Sprite getSprite(); //retorna el sprite del jugador
 
 };
