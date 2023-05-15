@@ -3,6 +3,7 @@
 //
 #include "DrawMap.h"
 #include "Variables.h"
+#include "astar.h"
 
 int main(){
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML window");
@@ -39,8 +40,11 @@ int main(){
     };
     
 
-    
-    
+    std::vector<std::pair<int,int>> path = aStar(maparr, 1, 3, 13, 5);
+    std::cout << "Distance: " << path.size() << "\n";
+
+    enemigo.setPath(path);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -52,6 +56,7 @@ int main(){
         window.clear(sf::Color(34,178,193));
         draw_map(window, maparr, jugador, enemigo);
         jugador.update(maparr);
+        enemigo.update(maparr);
         window.display();
     }
 
