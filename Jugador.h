@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 
 class Jugador{
@@ -22,9 +23,7 @@ public:
      * @param up cantidad de movimiento hacia arriba
      * @param down cantidad de movimiento hacia abajo
      */
-    void update();
-
-    void setNextWall(char a);
+    void update(char mapa[][22]);
 
     bool checkCollision(char mapa[][22]);
 

@@ -8,7 +8,7 @@ void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador){
     sf::Texture texture;
     texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/map24.png");
     sprite.setTexture(texture);
-
+    r_window.draw(jugador.getSprite());
     for(int i=0; i < 21; i++) {
         for (int j = 0; j < 22; j++) {
             sprite.setPosition(ALIGN + CELL_SIZE * j,ALIGN + CELL_SIZE * i);
@@ -70,12 +70,6 @@ void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador){
                 case '=': {
                     sprite.setTextureRect(sf::IntRect(2 * CELL_SIZE, CELL_SIZE, CELL_SIZE, CELL_SIZE));
                     r_window.draw(sprite);
-                    break;
-                }
-
-                case 'P':{
-                    jugador.setSprite(ALIGN + j * CELL_SIZE, ALIGN + i * CELL_SIZE);
-                    r_window.draw(jugador.getSprite());
                     break;
                 }
             }
