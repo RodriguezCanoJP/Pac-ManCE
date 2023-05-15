@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
 
 
 class Jugador{
@@ -10,7 +11,6 @@ protected:
     int x; ///< posicion en el eje x
     int y; ///< posicion en el eje y
     int direction;
-    char next_wall;
 
 public:
 

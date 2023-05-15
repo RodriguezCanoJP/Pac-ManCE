@@ -11,6 +11,8 @@ int main(){
     Jugador jugador;
     jugador.setSprite(ALIGN + 10*CELL_SIZE,ALIGN + 15*CELL_SIZE);
 
+    Enemigo enemigo;
+    enemigo.setSprite(ALIGN + 10*CELL_SIZE,ALIGN + 7*CELL_SIZE);
 
     char maparr[21][22]{
         " ################### ",
@@ -48,7 +50,7 @@ int main(){
 
 
         window.clear(sf::Color(34,178,193));
-        draw_map(window, maparr, jugador);
+        draw_map(window, maparr, jugador, enemigo);
         jugador.update(maparr);
         window.display();
     }

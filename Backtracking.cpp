@@ -32,8 +32,8 @@ bool solveMazeUtil(int maze[][COL], int x, int y, int destX, int destY, vector<p
     }
 
     // Comprobar movimientos arriba, abajo, izquierda y derecha
-    int row[] = { -1, 0, 0, 1 };
-    int col[] = { 0, -1, 1, 0 };
+    int row[] = {-1, 0, 0, 1};
+    int col[] = {0, -1, 1, 0};
 
     for (int i = 0; i < 4; i++) {
         int nextX = x + row[i];
@@ -49,4 +49,7 @@ bool solveMazeUtil(int maze[][COL], int x, int y, int destX, int destY, vector<p
             }
 
             // Si no se encontró la ruta, deshacer el movimiento y continuar con el siguiente movimiento
-            visited[nextX][nextY]
+            visited[nextX][nextY];
+        }
+    }
+}

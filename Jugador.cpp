@@ -88,17 +88,17 @@ bool Jugador::checkCollision(char mapa[][22]) {
     bool collision = false;
     switch (direction) {
         case 1:
-            for (int i = curr_y; i > 0; i--) {
+            for (int i = curr_y; i >= 0; i--) {
                 if (mapa[i][curr_x] == '#') {
-                    wall_posy = i*24 + ALIGN;
+                    wall_posy = i*CELL_SIZE + ALIGN;
                     break;
                 }
             }
-            collision = this->getY() - CELL_SIZE < wall_posy;
+            collision = this->getY() - CELL_SIZE - 1 < wall_posy;
             break;
 
         case 2:
-            for (int i = curr_y; i > 0; i++) {
+            for (int i = curr_y; i < 21; i++) {
                 if (mapa[i][curr_x] == '#') {
                     wall_posy = i*CELL_SIZE + ALIGN;
                     break;
@@ -107,7 +107,7 @@ bool Jugador::checkCollision(char mapa[][22]) {
             collision = this->getY() + CELL_SIZE > wall_posy;
             break;
         case 3:
-            for (int i = curr_x; i > 0; i++) {
+            for (int i = curr_x; i < 22 ; i++) {
                 if (mapa[curr_y][i] == '#') {
                     wall_posx = i*CELL_SIZE + ALIGN;
                     break;
@@ -116,16 +116,15 @@ bool Jugador::checkCollision(char mapa[][22]) {
             collision = this->getX() + CELL_SIZE > wall_posx;
             break;
         case 4:
-            for (int i = curr_x; i > 0; i--) {
+            for (int i = curr_x; i >= 0; i--) {
                 if (mapa[curr_y][i] == '#') {
-                    wall_posx = i*25 + ALIGN;
+                    wall_posx = i*CELL_SIZE + ALIGN;
                     break;
                 }
             }
-            collision = this->getX() - CELL_SIZE < wall_posx;
+            collision = this->getX() - CELL_SIZE - 1 < wall_posx;
             break;
     }
-    std::cout << collision << "\n";
     return collision;
 
 }

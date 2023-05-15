@@ -190,7 +190,7 @@ public:
 
 
 
-
+/*
 int main()
 {
     Tree* myTree = new Tree();
@@ -206,3 +206,4 @@ int main()
     return 0;
 }
 
+*/
