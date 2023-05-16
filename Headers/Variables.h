@@ -8,5 +8,6 @@
 extern int CELL_SIZE;
 extern int ALIGN;
 extern int VEL;
+extern int VEL_ENEMIGO;
 
 #endif //PAC_MANCE_VARIABLES_H

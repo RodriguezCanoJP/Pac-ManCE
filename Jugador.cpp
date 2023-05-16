@@ -1,10 +1,11 @@
-#include "Jugador.h"
-#include "Variables.h"
+#include "Headers/Jugador.h"
+#include "Headers/Variables.h"
 
 Jugador::Jugador() {
     this->health = 3;
     this->x = 0;
     this->y = 0;
+    puntaje = 0;
 }
 
 Jugador::~Jugador() {
@@ -127,4 +128,17 @@ bool Jugador::checkCollision(char mapa[][22]) {
     }
     return collision;
 
+}
+
+void Jugador::collect(char (*mapa)[22]) {
+    int curr_x = (this->getX()-ALIGN)/CELL_SIZE;
+    int curr_y = (this->getY()-ALIGN)/CELL_SIZE;
+    if(mapa[curr_y][curr_x] == '.'){
+        puntaje += 5;
+        mapa[curr_y][curr_x] = ' ';
+    }
+}
+
+bool Jugador::getPuntaje() {
+    return (puntaje > 0 && puntaje % 200 == 0);
 }

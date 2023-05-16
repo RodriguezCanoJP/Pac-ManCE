@@ -11,7 +11,7 @@ protected:
     int x; ///< posicion en el eje x
     int y; ///< posicion en el eje y
     int direction;
-
+    int puntaje;
 public:
 
     ///Constructor/Destructor
@@ -27,11 +27,14 @@ public:
 
     bool checkCollision(char mapa[][22]);
 
+    void collect(char mapa[][22]);
     /**
      * Retorna la posicion del jugador en el eje x
      * @return int x
      */
     int getX();
+
+    bool getPuntaje();
 
     /**
      * diminuye la vida del jugador
@@ -49,6 +52,7 @@ public:
      * @return int y
      */
     int getY();
+
 
     void setSprite(int x, int y);
 

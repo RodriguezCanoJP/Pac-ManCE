@@ -7,6 +7,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <ctime>
+#include <iostream>
 
 
 class Enemigo {
@@ -17,6 +19,7 @@ protected:
     int x;
     int y;
     std::vector<std::pair<int,int>> path;
+    int steps;
 public:
     Enemigo();
     ~Enemigo();
@@ -24,7 +27,9 @@ public:
     int getX();
     int getY();
     void setPath(std::vector<std::pair<int,int>> new_path);
+    void pathfind();
     void update(char mapa[][22]);
+    bool checkCollision(char mapa[][22]);
     sf::Sprite getSprite();
 
 };

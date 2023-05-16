@@ -1,8 +1,8 @@
 //
 // Created by juanpablo on 08/05/23.
 //
-#include "DrawMap.h"
-#include "Variables.h"
+#include "Headers/DrawMap.h"
+#include "Headers/Variables.h"
 void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador, Enemigo enemigo){
     sf::Sprite sprite;
     sf::Texture texture;

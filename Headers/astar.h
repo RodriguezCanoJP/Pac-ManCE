@@ -21,6 +21,7 @@ const int INF = 1e9;
 const int dx[4] = {1,0,-1,0};
 const int dy[4] = {0, 1, 0, -1};
 
+pair<int,int> findPower(char mapa[N][M]);
 
 bool isValid(int x, int y);
 
@@ -28,6 +29,6 @@ int valueH(int x, int y, int final_x, int final_y);
 
 vector<pair<int,int>> getPath(int prev[N][M], int start_x, int start_y, int final_x, int final_y);
 
-vector<pair<int,int>> aStar(char mapa[N][M], int start_x, int start_y, int final_x, int final_y);
+vector<pair<int,int>> aStar(char mapa[N][M], int start_x, int start_y);
 
 #endif //PAC_MANCE_ASTAR_H
