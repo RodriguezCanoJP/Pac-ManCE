@@ -19,6 +19,8 @@ int main(){
 
     Mapas map;
 
+    enemigo.setWall(map.mapa1);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {

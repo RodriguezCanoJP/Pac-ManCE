@@ -19,6 +19,7 @@ protected:
     int x;
     int y;
     std::vector<std::pair<int,int>> path;
+    std::pair<int,int> wall;
     int steps;
 public:
     Enemigo();
@@ -29,6 +30,7 @@ public:
     void setPath(std::vector<std::pair<int,int>> new_path);
     void pathfind();
     void update(char mapa[][22]);
+    void setWall(char mapa[][22]);
     bool checkCollision(char mapa[][22]);
     sf::Sprite getSprite();
 

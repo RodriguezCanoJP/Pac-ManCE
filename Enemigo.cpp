@@ -2,6 +2,8 @@
 // Created by juanpablo on 15/05/23.
 //
 
+#include <utility>
+
 #include "Headers/Enemigo.h"
 #include "Headers/Variables.h"
 
@@ -29,7 +31,7 @@ sf::Sprite Enemigo::getSprite() {
 }
 
 void Enemigo::setPath(std::vector<std::pair<int, int>> new_path) {
-    this->path = new_path;
+    this->path = std::move(new_path);
 }
 
 void Enemigo::pathfind() {
@@ -67,12 +69,12 @@ int Enemigo::getY() {
 
 void Enemigo::update(char (*mapa)[22]) {
     srand(time(0));
+
     if(this->path.empty()){
         if(checkCollision(mapa)){
             direccion = 1 + rand() % 4;
-            std::cout << direccion << "\n";
+            setWall(mapa);
         }
-
 
         switch (this->direccion) {
             case 0:
@@ -97,11 +99,29 @@ void Enemigo::update(char (*mapa)[22]) {
 }
 
 bool Enemigo::checkCollision(char (*mapa)[22]) {
+    bool collision = false;
+    switch (direccion) {
+        case 1:
+            collision = this->getY() < this->wall.second + CELL_SIZE;
+            break;
+        case 2:
+            collision = this->getY() + CELL_SIZE > this->wall.second;
+            break;
+        case 3:
+            collision = this->getX() + CELL_SIZE > this->wall.first;
+            break;
+        case 4:
+            collision = this->getX() < this->wall.first + CELL_SIZE;
+            break;
+    }
+    return collision;
+}
+
+void Enemigo::setWall(char (*mapa)[22]) {
     int curr_x = (this->getX()-ALIGN)/CELL_SIZE;
     int curr_y = (this->getY()-ALIGN)/CELL_SIZE;
     int wall_posx = 0;
     int wall_posy = 0;
-    bool collision = false;
     switch (direccion) {
         case 1:
             for (int i = curr_y; i >= 0; i--) {
@@ -110,9 +130,7 @@ bool Enemigo::checkCollision(char (*mapa)[22]) {
                     break;
                 }
             }
-            collision = this->getY() - CELL_SIZE - 1 < wall_posy;
             break;
-
         case 2:
             for (int i = curr_y; i < 21; i++) {
                 if (mapa[i][curr_x] == '#') {
@@ -120,7 +138,6 @@ bool Enemigo::checkCollision(char (*mapa)[22]) {
                     break;
                 }
             }
-            collision = this->getY() + CELL_SIZE > wall_posy;
             break;
         case 3:
             for (int i = curr_x; i < 22 ; i++) {
@@ -129,7 +146,6 @@ bool Enemigo::checkCollision(char (*mapa)[22]) {
                     break;
                 }
             }
-            collision = this->getX() + CELL_SIZE > wall_posx;
             break;
         case 4:
             for (int i = curr_x; i >= 0; i--) {
@@ -138,8 +154,7 @@ bool Enemigo::checkCollision(char (*mapa)[22]) {
                     break;
                 }
             }
-            collision = this->getX() - CELL_SIZE - 1 < wall_posx;
             break;
     }
-    return collision;
+    this->wall = {wall_posx, wall_posy};
 }

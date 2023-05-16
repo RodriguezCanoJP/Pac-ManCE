@@ -12,6 +12,7 @@ protected:
     int y; ///< posicion en el eje y
     int direction;
     int puntaje;
+    std::pair<int, int> wall;
 public:
 
     ///Constructor/Destructor
@@ -24,6 +25,8 @@ public:
      * @param down cantidad de movimiento hacia abajo
      */
     void update(char mapa[][22]);
+
+    void setWall(char  mapa[][22]);
 
     bool checkCollision(char mapa[][22]);
 

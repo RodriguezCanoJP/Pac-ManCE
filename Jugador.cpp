@@ -11,15 +11,53 @@ Jugador::Jugador() {
 Jugador::~Jugador() {
 }
 
+int Jugador::getX() {
+    return this->x;
+}
+
+int Jugador::getY() {
+    return this->y;
+}
+
+void Jugador::getHit() {
+    this->health --;
+}
+
+bool Jugador::isDead() {
+    if(this->health <= 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+sf::Sprite Jugador::getSprite() {
+    return this->sprite;
+}
+
+void Jugador::setSprite(int x, int y) {
+    this->x += x;
+    this->y += y;
+    this->texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/pacman.png");
+    this->sprite.setTexture(texture);
+    this->sprite.setPosition(this->x, this->y);
+}
+
+
+
 void Jugador::update(char mapa[][22]) {
     if (1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         this->direction = 1;
+        this->setWall(mapa);
     }else if(1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         this->direction = 2;
+        this->setWall(mapa);
     }else if(1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         this->direction = 3;
+        this->setWall(mapa);
     }else if(1 == sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         this->direction = 4;
+        this->setWall(mapa);
     }
 
     if(checkCollision(mapa)){
@@ -49,81 +87,22 @@ void Jugador::update(char mapa[][22]) {
     this->sprite.setPosition(this->x, this->y);
 }
 
-int Jugador::getX() {
-    return this->x;
-}
 
-int Jugador::getY() {
-    return this->y;
-}
-
-sf::Sprite Jugador::getSprite() {
-    return this->sprite;
-}
-
-void Jugador::getHit() {
-    this->health --;
-}
-
-bool Jugador::isDead() {
-    if(this->health <= 0){
-        return true;
-    }else{
-        return false;
-    }
-}
-
-void Jugador::setSprite(int x, int y) {
-    this->x += x;
-    this->y += y;
-    this->texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/pacman.png");
-    this->sprite.setTexture(texture);
-    this->sprite.setPosition(this->x, this->y);
-}
 
 bool Jugador::checkCollision(char mapa[][22]) {
-    int curr_x = (this->getX()-ALIGN)/CELL_SIZE;
-    int curr_y = (this->getY()-ALIGN)/CELL_SIZE;
-    int wall_posx = 0;
-    int wall_posy = 0;
     bool collision = false;
     switch (direction) {
         case 1:
-            for (int i = curr_y; i >= 0; i--) {
-                if (mapa[i][curr_x] == '#') {
-                    wall_posy = i*CELL_SIZE + ALIGN;
-                    break;
-                }
-            }
-            collision = this->getY() - CELL_SIZE - 1 < wall_posy;
+            collision = this->getY() - CELL_SIZE - 1 < this->wall.second;
             break;
-
         case 2:
-            for (int i = curr_y; i < 21; i++) {
-                if (mapa[i][curr_x] == '#') {
-                    wall_posy = i*CELL_SIZE + ALIGN;
-                    break;
-                }
-            }
-            collision = this->getY() + CELL_SIZE > wall_posy;
+            collision = this->getY() + CELL_SIZE > this->wall.second;
             break;
         case 3:
-            for (int i = curr_x; i < 22 ; i++) {
-                if (mapa[curr_y][i] == '#') {
-                    wall_posx = i*CELL_SIZE + ALIGN;
-                    break;
-                }
-            }
-            collision = this->getX() + CELL_SIZE > wall_posx;
+            collision = this->getX() + CELL_SIZE > this->wall.first;
             break;
         case 4:
-            for (int i = curr_x; i >= 0; i--) {
-                if (mapa[curr_y][i] == '#') {
-                    wall_posx = i*CELL_SIZE + ALIGN;
-                    break;
-                }
-            }
-            collision = this->getX() - CELL_SIZE - 1 < wall_posx;
+            collision = this->getX() - CELL_SIZE - 1 < this->wall.first;
             break;
     }
     return collision;
@@ -141,4 +120,46 @@ void Jugador::collect(char (*mapa)[22]) {
 
 bool Jugador::getPuntaje() {
     return (puntaje > 0 && puntaje % 200 == 0);
+}
+
+void Jugador::setWall(char (*mapa)[22]) {
+    int curr_x = (this->getX()-ALIGN)/CELL_SIZE;
+    int curr_y = (this->getY()-ALIGN)/CELL_SIZE;
+    int wall_posx = 0;
+    int wall_posy = 0;
+    switch (direction) {
+        case 1:
+            for (int i = curr_y; i >= 0; i--) {
+                if (mapa[i][curr_x] == '#') {
+                    wall_posy = i*CELL_SIZE + ALIGN;
+                    break;
+                }
+            }
+            break;
+        case 2:
+            for (int i = curr_y; i < 21; i++) {
+                if (mapa[i][curr_x] == '#') {
+                    wall_posy = i*CELL_SIZE + ALIGN;
+                    break;
+                }
+            }
+            break;
+        case 3:
+            for (int i = curr_x; i < 22 ; i++) {
+                if (mapa[curr_y][i] == '#') {
+                    wall_posx = i*CELL_SIZE + ALIGN;
+                    break;
+                }
+            }
+            break;
+        case 4:
+            for (int i = curr_x; i >= 0; i--) {
+                if (mapa[curr_y][i] == '#') {
+                    wall_posx = i*CELL_SIZE + ALIGN;
+                    break;
+                }
+            }
+            break;
+    }
+    this->wall = {wall_posx, wall_posy};
 }
