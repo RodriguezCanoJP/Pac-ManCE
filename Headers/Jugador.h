@@ -37,7 +37,11 @@ public:
      */
     int getX();
 
-    bool getPuntaje();
+    bool isPowered();
+
+    int getPuntaje();
+
+    int getHealth();
 
     /**
      * diminuye la vida del jugador

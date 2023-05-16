@@ -18,6 +18,14 @@ Enemigo::~Enemigo() {
 
 }
 
+int Enemigo::getX() {
+    return this->x;
+}
+
+int Enemigo::getY() {
+    return this->y;
+}
+
 void Enemigo::setSprite(int x, int y) {
     this->x += x;
     this->y += y;
@@ -59,23 +67,12 @@ void Enemigo::pathfind() {
     this->sprite.setPosition(this->x, this->y);
 }
 
-int Enemigo::getX() {
-    return this->x;
-}
 
-int Enemigo::getY() {
-    return this->y;
-}
 
 void Enemigo::update(char (*mapa)[22]) {
     srand(time(0));
 
     if(this->path.empty()){
-        if(checkCollision(mapa)){
-            direccion = 1 + rand() % 4;
-            setWall(mapa);
-        }
-
         switch (this->direccion) {
             case 0:
                 this->y +=0;
@@ -83,15 +80,35 @@ void Enemigo::update(char (*mapa)[22]) {
                 break;
             case 1:
                 this->y -= VEL_ENEMIGO;
+                if(checkCollision(mapa)){
+                    this->y += 1;
+                    direccion = 1 + rand() % 4;
+                    setWall(mapa);
+                }
                 break;
             case 2:
                 this->y += VEL_ENEMIGO;
+                if(checkCollision(mapa)){
+                    this->y -= 1;
+                    direccion = 1 + rand() % 4;
+                    setWall(mapa);
+                }
                 break;
             case 3:
                 this->x += VEL_ENEMIGO;
+                if(checkCollision(mapa)){
+                    this->x -= 1;
+                    direccion = 1 + rand() % 4;
+                    setWall(mapa);
+                }
                 break;
             case 4:
                 this->x -= VEL_ENEMIGO;
+                if(checkCollision(mapa)){
+                    this->x += 1;
+                    direccion = 1 + rand() % 4;
+                    setWall(mapa);
+                }
                 break;
         }
         this->sprite.setPosition(this->x, this->y);

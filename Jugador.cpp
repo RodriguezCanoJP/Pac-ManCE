@@ -23,8 +23,26 @@ void Jugador::getHit() {
     this->health --;
 }
 
+int Jugador::getPuntaje() {
+    return this-> puntaje;
+}
+
+int Jugador::getHealth() {
+    return this->health;
+}
+
+
 bool Jugador::isDead() {
     if(this->health <= 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Jugador::isPowered(){
+    if(puntaje > 0 && puntaje % 200 == 0){
+        puntaje += 1;
         return true;
     }else{
         return false;
@@ -112,15 +130,16 @@ bool Jugador::checkCollision(char mapa[][22]) {
 void Jugador::collect(char (*mapa)[22]) {
     int curr_x = (this->getX()-ALIGN)/CELL_SIZE;
     int curr_y = (this->getY()-ALIGN)/CELL_SIZE;
-    if(mapa[curr_y][curr_x] == '.'){
+    char obj = mapa[curr_y][curr_x];
+    if(obj == '.'){
         puntaje += 5;
         mapa[curr_y][curr_x] = ' ';
+    }else if(obj == 'o'){
+
     }
 }
 
-bool Jugador::getPuntaje() {
-    return (puntaje > 0 && puntaje % 200 == 0);
-}
+
 
 void Jugador::setWall(char (*mapa)[22]) {
     int curr_x = (this->getX()-ALIGN)/CELL_SIZE;
@@ -163,3 +182,4 @@ void Jugador::setWall(char (*mapa)[22]) {
     }
     this->wall = {wall_posx, wall_posy};
 }
+
