@@ -56,7 +56,7 @@ sf::Sprite Jugador::getSprite() {
 void Jugador::setSprite(int x, int y) {
     this->x += x;
     this->y += y;
-    this->texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/pacman.png");
+    this->texture.loadFromFile("/home/yitzy/CLionProjects/Pac-ManCE/Images/pacman.png");
     this->sprite.setTexture(texture);
     this->sprite.setPosition(this->x, this->y);
 }

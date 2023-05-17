@@ -4,17 +4,17 @@
 #include "Headers/DrawMap.h"
 #include "Headers/Variables.h"
 #include "Headers/astar.h"
-#include "Maps.cpp"
 #include "Headers/powerMod.h"
+#include "Headers/LevelManager.h"
 
 int main(){
     sf::Font font;
-    if (!font.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Font/static/OpenSans-Italic.ttf")){
+    if (!font.loadFromFile("//home/yitzy/CLionProjects/Pac-ManCE/Font/static/OpenSans-Italic.ttf")){
         return EXIT_FAILURE;
     }
 
     sf::Font bold;
-    if (!bold.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Font/static/OpenSans_SemiCondensed-Bold.ttf")){
+    if (!bold.loadFromFile("/home/yitzy/CLionProjects/Pac-ManCE/Font/static/OpenSans_SemiCondensed-Bold.ttf")){
         return EXIT_FAILURE;
     }
 
@@ -44,13 +44,9 @@ int main(){
     Jugador jugador;
     jugador.setSprite(ALIGN + 10*CELL_SIZE,ALIGN + 15*CELL_SIZE);
 
-    Enemigo enemigo;
-    enemigo.setSprite(ALIGN + 10*CELL_SIZE,ALIGN + 7*CELL_SIZE);
-
     Mapas map;
 
-    enemigo.setWall(map.mapa1);
-
+    LevelManager manager(map.mapa1);
 
 
 
@@ -63,20 +59,19 @@ int main(){
 
 
         window.clear(sf::Color(34,178,193));
-        draw_map(window, map.mapa1, jugador, enemigo);
+
         jugador.update(map.mapa1);
         jugador.collect(map.mapa1);
         puntaje.setString(to_string(jugador.getPuntaje()));
         vidas.setString(to_string(jugador.getHealth()));
-        enemigo.update(map.mapa1);
+        manager.updateEnemies(map.mapa1);
         if(jugador.isPowered()){
             setPower(map.mapa1);
-            int x = (enemigo.getX()-ALIGN)/CELL_SIZE;
-            int y = (enemigo.getY()-ALIGN)/CELL_SIZE;
-            std::vector<std::pair<int,int>> path = aStar(map.mapa1, y, x);
-            enemigo.setPath(path);
+            manager.enemyPath(map.mapa1);
         }
-        enemigo.pathfind();
+        manager.search();
+        draw_map(window, map.mapa1, jugador);
+        manager.drawEnemies(window);
         window.draw(texto_nivel);
         window.draw(puntaje);
         window.draw(vidas);

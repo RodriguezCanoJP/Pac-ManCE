@@ -29,7 +29,7 @@ int Enemigo::getY() {
 void Enemigo::setSprite(int x, int y) {
     this->x += x;
     this->y += y;
-    this->texture.loadFromFile("/home/juanpablo/CLionProjects/Pac-ManCE/Images/ghost.png");
+    this->texture.loadFromFile("/home/yitzy/CLionProjects/Pac-ManCE/Images/ghost.png");
     this->sprite.setTexture(texture);
     this->sprite.setPosition(this->x, this->y);
 }

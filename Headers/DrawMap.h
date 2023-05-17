@@ -9,5 +9,5 @@
 #include "Jugador.h"
 #include "Enemigo.h"
 
-void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador, Enemigo enemigo);
+void draw_map(sf::RenderWindow& r_window, char map[][22], Jugador jugador);
 #endif //PAC_MANCE_DRAWMAP_H
